@@ -1,7 +1,6 @@
 <?php
 
 
-   
 
 // Obtiene los datos enviados
 $datos = datasubmitted();

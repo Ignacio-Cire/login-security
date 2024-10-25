@@ -1,11 +1,11 @@
 <?php
 
 class Usuario extends BaseDatos {
-    private $id;
-    private $nombreUsuario;
-    private $password;
-    private $email;
-    private $mensajeoperacion;
+    private $idUsuario;
+    private $usNombre;
+    private $usPass;
+    private $usMail;
+    private $usDeshabilitado;
 
     public function __construct(){
         parent::__construct();
