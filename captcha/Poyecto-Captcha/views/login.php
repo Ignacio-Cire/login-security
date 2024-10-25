@@ -1,4 +1,3 @@
-
 <?php
 include_once './estructura/nav.php';
 ?>
@@ -9,7 +8,6 @@ include_once './estructura/nav.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login con reCAPTCHA</title>
-    <!-- Bootstrap v4.5.2 -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -17,7 +15,7 @@ include_once './estructura/nav.php';
         <div class="card shadow-sm" style="width: 400px;">
             <div class="card-body">
                 <h3 class="text-center mb-4">Iniciar Sesión</h3>
-                <form action="login.php" method="POST">
+                <form action="./action/verificarLogin.php" method="POST"> <!-- Asegúrate de que la ruta sea correcta -->
                     <!-- Campo de Email -->
                     <div class="form-group">
                         <label for="email"></label>
@@ -43,9 +41,11 @@ include_once './estructura/nav.php';
         </div>
     </div>
 
-    <!-- reCAPTCHA Script -->
+    <?php
+include_once './estructura/footer.php';
+?>
+
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <!-- Bootstrap JS y dependencias -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

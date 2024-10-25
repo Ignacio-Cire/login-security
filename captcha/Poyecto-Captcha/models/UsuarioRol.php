@@ -25,7 +25,7 @@ class UsuarioRol extends BaseDatos {
 
     public function setIdUsuario($valor) {
         $this->idUsuario = $valor;
-    }
+    }   
 
     public function getIdRol() {
         return $this->idRol;

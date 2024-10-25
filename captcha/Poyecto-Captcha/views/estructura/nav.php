@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -11,18 +9,12 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
-  
-
-
-    <link rel="stylesheet" href="../css/style.css">
-
+   
 </head>
 
 <body>
-
-
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand fa-2x" href="./menu.html">Menu</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="./menu.html">Menú</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -30,30 +22,30 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="../TP4 dinámica/PhpMySql/phpMySql/view/VerAutos.php"></a>
+                    <a class="nav-link" href="#">link</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../TP4 dinámica/PhpMySql/phpMySql/view/buscarAuto.php"></a>
+                    <a class="nav-link" href="#">link</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="PhpMySql/phpMySql/view/listaPersonas.php"></a>
+                    <a class="nav-link" href="#">link</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="PhpMySql/phpMySql/view/nuevaPersona.php"></a>
+                    <a class="nav-link" href=".#">link</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="PhpMySql/phpMySql/view/nuevoAuto.php"</a>
+                    <a class="nav-link" href=".#">link</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="PhpMySql/phpMySql/view/cambioDuenio.php" </a>
+                    <a class="nav-link" href="#">link</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="PhpMySql/phpMySql/view/buscarPersona.php"></a>
+                    <a class="nav-link" href="#">link</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="https://github.com/Ignacio-Cire" target="_blank">
+                    <a class="nav-link" href="https://github.com/Ignacio-Cire/login-security.git" target="_blank">
                         <i class="fab fa-github fa-2x"></i>
                     </a>
                 </li>
@@ -62,10 +54,8 @@
     </nav>
 
     <!-- Bootstrap JS -->
-    <script src="./PhpMySql/phpMySql/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 
 </html>
