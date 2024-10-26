@@ -1,5 +1,5 @@
 <?php
-include_once '../estructura/db.php';
+
 include_once '../utils/funciones.php'; // Asegúrate de incluir la función datasubmitted
 
 // Llama a la función para obtener los datos enviados

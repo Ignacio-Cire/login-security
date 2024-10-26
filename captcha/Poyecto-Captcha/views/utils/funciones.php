@@ -1,11 +1,25 @@
 <?php
 
+
+// Función para obtener los datos enviados por POST o GET
+function datasubmitted()
+{
+    $datos = array();
+    foreach ($_POST as $key => $value) {
+        $datos[$key] = $value;
+    }
+    foreach ($_GET as $key => $value) {
+        $datos[$key] = $value;
+    }
+    return $datos;
+}
+
 // Obtiene los datos enviados
 $datos = datasubmitted();
 
 if ($datos) {
     // Extrae los datos del formulario
-    $username = $datos['name'];
+    $username = $datos['nombreUsuario'];
     $email = $datos['email'];
     $password = $datos['password'];
     $captcha = $datos['g-recaptcha-response'];
@@ -34,16 +48,5 @@ if ($datos) {
         echo 'Acceso concedido. Bienvenido.';
     }
 
-// Función para obtener los datos enviados por POST o GET
-    function datasubmitted()
-    {
-        $datos = array();
-        foreach ($_POST as $key => $value) {
-            $datos[$key] = $value;
-        }
-        foreach ($_GET as $key => $value) {
-            $datos[$key] = $value;
-        }
-        return $datos;
-    }
+
 }
