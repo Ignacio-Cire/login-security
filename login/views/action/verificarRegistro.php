@@ -1,6 +1,8 @@
 <?php
-
-require_once '../utils/funciones'; // Importa la función datasubmitted 
+session_start();
+include_once 'C:\xampp\htdocs\login-security\login\views\utils\funciones.php'; 
+include_once '../../models/conector/BaseDatos.php';
+include_once '../../models/Usuario.php';
 
 
 
@@ -25,17 +27,31 @@ if ($datos) {
         exit;
     }
 
-  
-    
     // Valida el CAPTCHA
     if (!validarCaptcha($captcha)) {
         echo 'Verificación CAPTCHA fallida. Inténtalo de nuevo.';
+    }
+    
+
+
+
+    // Crear una instancia de la base de datos
+    $baseDatos = new BaseDatos();
+
+// Crear una instancia de Usuario
+    $usuario = new Usuario($username, $email, password_hash($password, PASSWORD_BCRYPT)); // usar hash para la contraseña
+
+    if ($baseDatos->Iniciar()) {
+        // Llama a tu método para insertar el usuario
+        if ($usuario->insertar($baseDatos)) { // Asegúrate de tener un método insertar en tu clase Usuario
+            echo 'Usuario registrado exitosamente.'; // Mensaje de éxito ,unico mensaje
+        } else {
+            echo 'Error al registrar el usuario. Intenta de nuevo.'; // Mensaje de error
+        }
     } else {
-        // Procede con la validación del registro, como verificar en la base de datos
-        echo 'Acceso concedido. Bienvenido.';
+        echo 'Error en la conexión a la base de datos.'; // Mensaje de error
     }
 
+    exit();
 
-
-    
-}   
+}

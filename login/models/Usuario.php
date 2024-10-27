@@ -7,14 +7,15 @@ class Usuario extends BaseDatos {
     private $usMail;
     private $usDeshabilitado;
 
-    public function __construct(){
+    public function __construct($nombreUsuario = "", $password = "", $email = "") {
         parent::__construct();
         $this->id = "";
-        $this->nombreUsuario = "";
-        $this->password = "";
-        $this->email = "";
+        $this->nombreUsuario = $nombreUsuario;
+        $this->password = $password;
+        $this->email = $email;
         $this->mensajeoperacion = "";
     }
+    
 
     public function setear($id, $nombreUsuario, $password, $email){
         $this->setId($id);
@@ -66,22 +67,26 @@ class Usuario extends BaseDatos {
 
     public function insertar(){
         $resp = false;
-        $sql = "INSERT INTO usuarios (nombreUsuario, password, email) VALUES ('".$this->getNombreUsuario()."', '".$this->getPassword()."', '".$this->getEmail()."')";
-        echo "SQL a ejecutar: " . $sql; // Depuración
+        $sql = "INSERT INTO usuarios (nombreUsuario, password, email) VALUES ('" . $this->getNombreUsuario() . "', '" . $this->getPassword() . "', '" . $this->getEmail() . "')";
+    
         if ($this->Iniciar()) {
             if ($this->Ejecutar($sql)) {
                 $resp = true;
-                echo "Inserción exitosa"; // Depuración
+             
             } else {
-                $this->setMensajeOperacion($this->getError());
-                echo "Error en la inserción: " . $this->getError(); // Depuración
+                echo "Error en la inserción: " . $this->getError(); // Error específico si falla
             }
         } else {
-            echo "No se pudo iniciar la conexión"; // Depuración
+            echo "No se pudo iniciar la conexión"; // Error si falla la conexión
         }
         return $resp;
     }
+   
     
+    
+
+
+
 
     public function modificar(){
         $resp = false;

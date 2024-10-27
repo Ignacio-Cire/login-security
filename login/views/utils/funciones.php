@@ -1,6 +1,6 @@
 <?php
 
-require 'C:/xampp/htdocs/login-security/captcha/vendor/autoload.php';
+require '../../../vendor/autoload.php';
 
 use GuzzleHttp\Client;
 
