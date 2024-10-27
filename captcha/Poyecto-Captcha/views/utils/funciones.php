@@ -1,5 +1,8 @@
 <?php
 
+require 'C:/xampp/htdocs/login-security/captcha/vendor/autoload.php';
+
+use GuzzleHttp\Client;
 
 // Función para obtener los datos enviados por POST o GET
 function datasubmitted()
@@ -14,39 +17,20 @@ function datasubmitted()
     return $datos;
 }
 
-// Obtiene los datos enviados
-$datos = datasubmitted();
+// Función para validar el CAPTCHA usando Guzzle
+function validarCaptcha($captcha)
+{
+    $secretKey = '6LfhnVkqAAAAAAYhv6_sMWmJTAwtMErZLcOiVPvV';
+    $client = new Client();
 
-if ($datos) {
-    // Extrae los datos del formulario
-    $username = $datos['nombreUsuario'];
-    $email = $datos['email'];
-    $password = $datos['password'];
-    $captcha = $datos['g-recaptcha-response'];
+    $response = $client->post('https://www.google.com/recaptcha/api/siteverify', [
+        'form_params' => [
+            'secret' => $secretKey,
+            'response' => $captcha
+        ]
+    ]);
+    
+    $responseKeys = json_decode($response->getBody(), true);
 
-    // Verifica si el CAPTCHA está presente
-    if (!$captcha) {
-        echo 'Por favor, verifica el CAPTCHA.';
-        exit;
-    }
-
-    // Función para validar el CAPTCHA con la API de Google
-    function validar($captcha)
-    {
-        $secretKey = '6LfhnVkqAAAAAAYhv6_sMWmJTAwtMErZLcOiVPvV';
-        $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$captcha");
-        $responseKeys = json_decode($response, true);
-
-        return intval($responseKeys['success']) === 1;
-    }
-
-    // Valida el CAPTCHA
-    if (!validar($captcha)) {
-        echo 'Verificación CAPTCHA fallida. Inténtalo de nuevo.';
-    } else {
-        // Procede con la validación del login, como verificar en la base de datos
-        echo 'Acceso concedido. Bienvenido.';
-    }
-
-
+    return isset($responseKeys['success']) && $responseKeys['success'] === true;
 }
