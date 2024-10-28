@@ -7,12 +7,12 @@ class Usuario extends BaseDatos {
     private $usMail;
     private $usDeshabilitado;
 
-    public function __construct($nombreUsuario = "", $password = "", $email = "") {
+    public function __construct($nombreUsuario = "", $email = "", $password = "") {
         parent::__construct();
         $this->id = "";
         $this->nombreUsuario = $nombreUsuario;
-        $this->password = $password;
         $this->email = $email;
+        $this->password = $password;
         $this->mensajeoperacion = "";
     }
     
