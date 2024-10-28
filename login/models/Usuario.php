@@ -1,12 +1,14 @@
 <?php
 
-class Usuario extends BaseDatos {
+class Usuario extends BaseDatos
+{
     private $idUsuario;
     private $usNombre;
     private $usPass;
     private $usMail;
     private $usDeshabilitado;
 
+ 
     public function __construct($nombreUsuario = "", $email = "", $password = "") {
         parent::__construct();
         $this->id = "";
@@ -15,64 +17,74 @@ class Usuario extends BaseDatos {
         $this->password = $password;
         $this->mensajeoperacion = "";
     }
-    
 
-    public function setear($id, $nombreUsuario, $password, $email){
+    public function setear($id, $nombreUsuario, $password, $email)
+    {
         $this->setId($id);
         $this->setNombreUsuario($nombreUsuario);
         $this->setPassword($password);
         $this->setEmail($email);
     }
 
-    public function getId(){
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function setId($valor){
+    public function setId($valor)
+    {
         $this->id = $valor;
     }
 
-    public function getNombreUsuario(){
+    public function getNombreUsuario()
+    {
         return $this->nombreUsuario;
     }
 
-    public function setNombreUsuario($valor){
+    public function setNombreUsuario($valor)
+    {
         $this->nombreUsuario = $valor;
     }
 
-    public function getPassword(){
+    public function getPassword()
+    {
         return $this->password;
     }
 
-    public function setPassword($valor){
+    public function setPassword($valor)
+    {
         $this->password = $valor;
     }
 
-    public function getEmail(){
+    public function getEmail()
+    {
         return $this->email;
     }
 
-    public function setEmail($valor){
+    public function setEmail($valor)
+    {
         $this->email = $valor;
     }
 
-    public function getMensajeOperacion(){
+    public function getMensajeOperacion()
+    {
         return $this->mensajeoperacion;
     }
 
-    public function setMensajeOperacion($valor){
+    public function setMensajeOperacion($valor)
+    {
         $this->mensajeoperacion = $valor;
     }
 
-
-    public function insertar(){
+    public function insertar()
+    {
         $resp = false;
-        $sql = "INSERT INTO usuarios (nombreUsuario, password, email) VALUES ('" . $this->getNombreUsuario() . "', '" . $this->getPassword() . "', '" . $this->getEmail() . "')";
-    
+        $sql = "INSERT INTO usuarios (nombreUsuario, email, password) VALUES ('" . $this->getNombreUsuario() . "', '" . $this->getEmail() . "', '" . $this->getPassword() . "')";
+
         if ($this->Iniciar()) {
             if ($this->Ejecutar($sql)) {
                 $resp = true;
-             
+
             } else {
                 echo "Error en la inserción: " . $this->getError(); // Error específico si falla
             }
@@ -81,16 +93,21 @@ class Usuario extends BaseDatos {
         }
         return $resp;
     }
-   
-    
-    
 
+    // para el login del usuario
+    public function obtenerPorEmail($db, $email)
+    {
+        $query = "SELECT * FROM usuarios WHERE email = :email LIMIT 1"; // Ajusta el nombre de la tabla
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
-
-
-    public function modificar(){
+    public function modificar()
+    {
         $resp = false;
-        $sql = "UPDATE usuarios SET nombreUsuario = '".$this->getNombreUsuario()."', password = '".$this->getPassword()."', email = '".$this->getEmail()."' WHERE id = ".$this->getId();
+        $sql = "UPDATE usuarios SET nombreUsuario = '" . $this->getNombreUsuario() . "', password = '" . $this->getPassword() . "', email = '" . $this->getEmail() . "' WHERE id = " . $this->getId();
         if ($this->Iniciar()) {
             if ($this->Ejecutar($sql)) {
                 $resp = true;
@@ -101,11 +118,10 @@ class Usuario extends BaseDatos {
         return $resp;
     }
 
-
-
-    public function eliminar(){
+    public function eliminar()
+    {
         $resp = false;
-        $sql = "DELETE FROM usuarios WHERE id = ".$this->getId();
+        $sql = "DELETE FROM usuarios WHERE id = " . $this->getId();
         if ($this->Iniciar()) {
             if ($this->Ejecutar($sql)) {
                 $resp = true;
@@ -115,6 +131,5 @@ class Usuario extends BaseDatos {
         }
         return $resp;
     }
-    
-    
+
 }
