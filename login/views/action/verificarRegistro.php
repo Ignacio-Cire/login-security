@@ -4,8 +4,6 @@ include_once 'C:\xampp\htdocs\login-security\login\views\utils\funciones.php';
 include_once '../../models/conector/BaseDatos.php';
 include_once '../../models/Usuario.php';
 
-
-
 // Obtiene los datos enviados
 $datos = datasubmitted();
 
@@ -30,21 +28,23 @@ if ($datos) {
     // Valida el CAPTCHA
     if (!validarCaptcha($captcha)) {
         echo 'Verificación CAPTCHA fallida. Inténtalo de nuevo.';
+        exit; // Asegúrate de salir si falla la validación
     }
-    
-
-
 
     // Crear una instancia de la base de datos
     $baseDatos = new BaseDatos();
 
-// Crear una instancia de Usuario
+    // Crear una instancia de Usuario
     $usuario = new Usuario($username, $email, password_hash($password, PASSWORD_BCRYPT)); // usar hash para la contraseña
 
     if ($baseDatos->Iniciar()) {
         // Llama a tu método para insertar el usuario
         if ($usuario->insertar($baseDatos)) { // Asegúrate de tener un método insertar en tu clase Usuario
-            echo 'Usuario registrado exitosamente.'; // Mensaje de éxito ,unico mensaje
+            // Mensaje de éxito guardado en la sesión
+            $_SESSION['mensaje'] = 'Registro exitoso. Puedes iniciar sesión ahora.';
+            // Redirige a login.php después de un registro exitoso
+            header('Location: ../login.php');
+            exit();
         } else {
             echo 'Error al registrar el usuario. Intenta de nuevo.'; // Mensaje de error
         }
@@ -53,5 +53,4 @@ if ($datos) {
     }
 
     exit();
-
 }
