@@ -51,12 +51,12 @@ if ($datos) {
                 exit();
             } else {
                 echo 'La contraseña es incorrecta. Inténtalo de nuevo.';
-                header('Location: ../login.php'); // Redirige de vuelta a login si la contraseña es incorrecta
+                // header('Location: ../login.php'); // Redirige de vuelta a login si la contraseña es incorrecta
                 exit();
             }
         } else {
             echo 'No existe un usuario con ese email. Por favor, verifica e intenta nuevamente.';
-            header('Location: ../login.php'); // Redirige de vuelta a login si el email es incorrecto
+            // header('Location: ../login.php'); // Redirige de vuelta a login si el email es incorrecto
             exit();
         }
     } else {
