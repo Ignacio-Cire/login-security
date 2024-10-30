@@ -47,16 +47,16 @@ if ($datos) {
                 $_SESSION['usuario'] = $usuarioData['nombreUsuario'];
                 
                 // Redirige a paginaSegura.php si el inicio de sesión es exitoso
-                header('Location: ../views/paginaSegura.php');
+                header('Location: ../paginaSegura.php');
                 exit();
             } else {
                 echo 'La contraseña es incorrecta. Inténtalo de nuevo.';
-                header('Location: ../Vista/login.php'); // Redirige de vuelta a login si la contraseña es incorrecta
+                header('Location: ../login.php'); // Redirige de vuelta a login si la contraseña es incorrecta
                 exit();
             }
         } else {
             echo 'No existe un usuario con ese email. Por favor, verifica e intenta nuevamente.';
-            header('Location: ../view/login.php'); // Redirige de vuelta a login si el email es incorrecto
+            header('Location: ../login.php'); // Redirige de vuelta a login si el email es incorrecto
             exit();
         }
     } else {
