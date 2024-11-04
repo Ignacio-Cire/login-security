@@ -95,14 +95,7 @@ class Usuario extends BaseDatos
     }
 
     // para el login del usuario
-    public function obtenerPorEmail($db, $email)
-    {
-        $query = "SELECT * FROM usuarios WHERE email = :email LIMIT 1"; // Ajusta el nombre de la tabla
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
+   
 
     public function modificar()
     {

@@ -1,13 +1,19 @@
 <?php
 session_start();
 
-// Verifica si el usuario ha iniciado sesión
-if (!isset($_SESSION['usuario'])) {
+include_once 'Session.php'; // Incluye la clase Session
+
+// Crear instancia de Session
+$objSession = new Session();
+
+// Usa el método validar para comprobar si el usuario ha iniciado sesión
+if (!$objSession->validar()) {
     // Si no está autenticado, redirige al login
-    echo "no se pudo iniciar sesion";
+    echo "No se pudo iniciar sesión";
     // header('Location: ../view/login.php');
     exit();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +27,7 @@ if (!isset($_SESSION['usuario'])) {
 <body>
     <div class="container mt-5">
         <h1>Bienvenido/a !!</h1>
-        <p> <?php echo htmlspecialchars($_SESSION['usuario']); ?>. Has iniciado sesión exitosamente.</p>
+        <p> <?php echo htmlspecialchars($session->getUsuario()); ?>. Has iniciado sesión exitosamente.</p>
         
         <!-- Puedes agregar contenido adicional aquí -->
 

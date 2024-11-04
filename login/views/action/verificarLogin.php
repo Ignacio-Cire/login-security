@@ -2,7 +2,8 @@
 session_start();
 include_once 'C:\xampp\htdocs\login-security\login\views\utils\funciones.php'; 
 include_once '../../models/conector/BaseDatos.php';
-include_once '../../models/Usuario.php';
+include_once '../../controller/ABMusuario.php';
+include_once '../../controller/session.php';
 
 // Obtiene los datos enviados
 $datos = datasubmitted();
@@ -34,7 +35,10 @@ if ($datos) {
     $baseDatos = new BaseDatos();
 
     // Crear una instancia de Usuario
-    $usuario = new Usuario(); 
+    $usuario = new ABMUsuario(); 
+
+    // Crear una instancia de Session
+    $objSession = new Session();
 
     if ($baseDatos->Iniciar()) {
         // Llama a tu método para obtener el usuario por email
@@ -43,20 +47,21 @@ if ($datos) {
         if ($usuarioData) {
             // Verifica la contraseña
             if (password_verify($password, $usuarioData['password'])) {
-                // Guarda la información del usuario en la sesión
-                $_SESSION['usuario'] = $usuarioData['nombreUsuario'];
-                
-                // Redirige a paginaSegura.php si el inicio de sesión es exitoso
-                header('Location: ../paginaSegura.php');
-                exit();
+                // Inicia la sesión con el método de tu clase
+                if ($objSession->iniciar($usuarioData['nombreUsuario'], $usuarioData['password'])) {
+                    // Redirige a paginaSegura.php si el inicio de sesión es exitoso
+                    header('Location: ../paginaSegura.php');
+                    exit();
+                } else {
+                    echo 'Error al iniciar la sesión. Por favor, intenta nuevamente.';
+                    exit();
+                }
             } else {
                 echo 'La contraseña es incorrecta. Inténtalo de nuevo.';
-                // header('Location: ../login.php'); // Redirige de vuelta a login si la contraseña es incorrecta
                 exit();
             }
         } else {
             echo 'No existe un usuario con ese email. Por favor, verifica e intenta nuevamente.';
-            // header('Location: ../login.php'); // Redirige de vuelta a login si el email es incorrecto
             exit();
         }
     } else {

@@ -10,21 +10,24 @@ class Session {
     }
 
     /**
-     * Iniciar sesión con nombre de usuario y contraseña
-     * @param string $nombreUsuario
-     * @param string $psw
+     * Inicia la sesión con un usuario y contraseña
+     * @param $nombreUsuario
+     * @param $psw
      * @return bool
      */
-    public function iniciar($nombreUsuario, $psw) {
+    public function iniciar($email) {
         // Asumimos que hay una clase Usuario en el ORM que maneja la validación de usuarios
+
+        //aca deberia llamar a ABMusuario...
         $usuario = new Usuario();
-        $usuarioEncontrado = $usuario->buscarPorNombreYPassword($nombreUsuario, $psw);
+        $usuarioEncontrado = $usuario->obtenerPorEmail($email);
 
         if ($usuarioEncontrado) {
             // Si el usuario es encontrado, actualizamos las variables de sesión
             $_SESSION['idUsuario'] = $usuario->getId();
             $_SESSION['nombreUsuario'] = $usuario->getNombreUsuario();
-            $_SESSION['rol'] = $usuario->getRol();  // Asumimos que el usuario tiene un rol
+
+            // $_SESSION['rol'] = $usuario->getRol();  // Asumimos que el usuario tiene un rol
             return true;
         } else {
             return false;
