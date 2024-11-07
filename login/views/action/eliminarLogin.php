@@ -1,7 +1,7 @@
 <?php
-include_once '../controller/ABMUsuario.php'; // Incluye el controlador ABMUsuario
+include_once '../controller/ABMusuario.php'; // Incluye el controlador ABMUsuario
 
-$abmUsuario = new ABMUsuario();
+$abmUsuario = new ABMusuario();
 
 // Llama a la función para obtener los datos enviados
 $datos = datasubmitted(); 

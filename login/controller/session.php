@@ -15,39 +15,50 @@ class Session {
      * @param $psw
      * @return bool
      */
-    public function iniciar($email) {
-        // Asumimos que hay una clase Usuario en el ORM que maneja la validación de usuarios
+    public function iniciar($nombreUsuario,$psw){
+        $resp = false;
+        $obj = new ABMUsuario();
+        $param['usnombre']=$nombreUsuario;
+        $param['uspass']=$psw;
+        $param['usdeshabilitado']='0000-00-00 00:00:00';
 
-        //aca deberia llamar a ABMusuario...
-        $usuario = new Usuario();
-        $usuarioEncontrado = $usuario->obtenerPorEmail($email);
-
-        if ($usuarioEncontrado) {
-            // Si el usuario es encontrado, actualizamos las variables de sesión
-            $_SESSION['idUsuario'] = $usuario->getId();
-            $_SESSION['nombreUsuario'] = $usuario->getNombreUsuario();
-
-            // $_SESSION['rol'] = $usuario->getRol();  // Asumimos que el usuario tiene un rol
-            return true;
+        $resultado = $obj->buscar($param);
+        if(count($resultado) > 0){
+            $usuario = $resultado[0];
+            $_SESSION['idusuario']=$usuario->getidusuario();
+            $resp = true;
         } else {
-            return false;
+            $this->cerrar();
         }
+        return $resp;
     }
+    
 
     /**
      * Valida si la sesión actual tiene un usuario y contraseña válidos
      * @return bool
      */
-    public function validar() {
-        return isset($_SESSION['idUsuario']) && isset($_SESSION['nombreUsuario']);
+    public function validar(){
+        $resp = false;
+        if($this->activa() && isset( $_SESSION['idusuario']))
+            $resp=true;
+        return $resp;
     }
 
     /**
      * Verifica si la sesión está activa
      * @return bool
      */
-    public function activa() {
-        return session_status() == PHP_SESSION_ACTIVE;
+    public function activa(){
+        $resp = false;
+        if ( php_sapi_name() !== 'cli' ) {
+            if ( version_compare(phpversion(), '5.4.0', '>=') ) {
+                $resp = session_status() === PHP_SESSION_ACTIVE ? TRUE : FALSE;
+            } else {
+                $resp = session_id() === '' ? FALSE : TRUE;
+            }
+        }
+        return $resp;
     }
 
     /**
@@ -75,13 +86,13 @@ class Session {
     /**
      * Cierra la sesión actual
      */
-    public function cerrar() {
-        // Limpiar todas las variables de sesión
-        $_SESSION = array();
-
-        // Destruir la sesión
-        if (session_status() == PHP_SESSION_ACTIVE) {
-            session_destroy();
-        }
+    public function cerrar(){
+        $resp = true;
+        session_destroy();
+        //$_SESSION['idusuario']=null;
+        return $resp;
     }
+   
+
+    
 }

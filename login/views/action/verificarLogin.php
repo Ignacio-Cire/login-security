@@ -1,9 +1,8 @@
 <?php
 session_start();
-include_once 'C:\xampp\htdocs\login-security\login\views\utils\funciones.php'; 
+include_once 'C:\xampp\htdocs\login-security\login\views\utils\funciones.php';
 include_once '../../models/conector/BaseDatos.php';
 include_once '../../controller/ABMusuario.php';
-include_once '../../controller/session.php';
 
 // Obtiene los datos enviados
 $datos = datasubmitted();
@@ -35,39 +34,28 @@ if ($datos) {
     $baseDatos = new BaseDatos();
 
     // Crear una instancia de Usuario
-    $usuario = new ABMUsuario(); 
-
-    // Crear una instancia de Session
-    $objSession = new Session();
+    $usuario = new ABMusuario();
 
     if ($baseDatos->Iniciar()) {
         // Llama a tu método para obtener el usuario por email
-        $usuarioData = $usuario->obtenerPorEmail($baseDatos, $email);
+        $usuarioData = $usuario->obtenerPorEmail($baseDatos, $email); //
 
         if ($usuarioData) {
-            // Verifica la contraseña
-            if (password_verify($password, $usuarioData['password'])) {
-                // Inicia la sesión con el método de tu clase
-                if ($objSession->iniciar($usuarioData['nombreUsuario'], $usuarioData['password'])) {
-                    // Redirige a paginaSegura.php si el inicio de sesión es exitoso
-                    header('Location: ../paginaSegura.php');
-                    exit();
-                } else {
-                    echo 'Error al iniciar la sesión. Por favor, intenta nuevamente.';
-                    exit();
-                }
+       
+            if (password_verify($password, $usuarioData['password'])) { // Asegúrate de que el password esté en el array
+                // Guarda la información del usuario en la sesión
+                $_SESSION['usuario'] = $usuarioData['nombreUsuario']; // O cualquier otro campo que quieras guardar
+                echo 'Inicio de sesión exitoso. Bienvenido, ' . $_SESSION['usuario'] . '.';
+                header('Location: ../paginaSegura.php');
             } else {
                 echo 'La contraseña es incorrecta. Inténtalo de nuevo.';
-                exit();
             }
         } else {
             echo 'No existe un usuario con ese email. Por favor, verifica e intenta nuevamente.';
-            exit();
         }
     } else {
-        echo 'Error en la conexión a la base de datos.';
+        echo 'Error en la conexión a la base de datos.'; // Mensaje de error
     }
 
     exit();
 }
-?>

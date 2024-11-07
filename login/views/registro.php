@@ -56,6 +56,6 @@ include_once './estructura/footer.php';
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./utils/hashPassword.js"></script> 
+    <!-- <script src="./utils/hashPassword.js"></script>  -->
 </body>
 </html>

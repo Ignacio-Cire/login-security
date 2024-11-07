@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include_once 'Session.php'; // Incluye la clase Session
+include_once '../controller/session.php'; // Incluye la clase Session
 
 // Crear instancia de Session
 $objSession = new Session();
